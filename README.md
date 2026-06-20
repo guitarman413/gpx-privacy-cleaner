@@ -35,15 +35,15 @@ Open `http://localhost:4173`.
 
 ## Analytics configuration
 
-The UI includes a strict GoatCounter adapter. Set the `analytics-endpoint` meta value in `index.html` to a site endpoint such as `https://example.goatcounter.com/count`.
+The UI uses the dedicated `gpxprivacycleaner` GoatCounter site. It sends image requests directly to the public count endpoint instead of loading GoatCounter's general-purpose script.
 
-Only allow-listed fixed event names are sent. Selected cleaning categories are represented by fixed event names such as `scrub_option_timestamps`; no user values are attached.
+Only allow-listed fixed event names and a random cache-busting value are sent. Selected cleaning categories are represented by fixed event names such as `scrub_option_timestamps`; no user values are attached. Referrer, query string and screen width are not sent by the application.
 
 ## Feedback configuration
 
-Set the `feedback-endpoint` meta value to an anonymous form endpoint that accepts JSON. The text body is sent only when the user explicitly submits it. It is never sent to analytics and the UI asks users not to include coordinates or GPX data.
+The optional third-party text endpoint is intentionally not configured. The evaluated provider required Google reCAPTCHA and additional account-page analytics, which did not meet this project's minimum-data rule.
 
-If no endpoint is configured, the text form opens a prefilled public GitHub Issue for the user to review. Yes/No feedback remains independent of the text form.
+“Not quite” therefore displays a GitHub Issue fallback that the user can review before submitting. GitHub requires an account. Yes/No feedback remains independent of written feedback and is counted by GoatCounter.
 
 ## Important limitation
 

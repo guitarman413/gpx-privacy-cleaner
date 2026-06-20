@@ -25,27 +25,24 @@ const ALLOWED_CATEGORIES = new Set([
   "coordinate_precision",
 ]);
 
-let configured = false;
-
 function endpoint() {
   return document.querySelector('meta[name="analytics-endpoint"]')?.content.trim() || "";
 }
 
-export function configureAnalytics() {
-  const countEndpoint = endpoint();
-  if (!countEndpoint || configured) return;
-  configured = true;
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = "https://gc.zgo.at/count.js";
-  script.dataset.goatcounter = countEndpoint;
-  script.dataset.goatcounterSettings = JSON.stringify({ no_onload: true, allow_local: false });
-  document.head.appendChild(script);
-}
+export function configureAnalytics() {}
 
 function send(path) {
-  if (!endpoint() || !window.goatcounter?.count) return;
-  window.goatcounter.count({ path, title: path, event: true });
+  const countEndpoint = endpoint();
+  if (!countEndpoint) return;
+  const query = new URLSearchParams({
+    p: path,
+    t: path,
+    e: "1",
+    rnd: Math.random().toString(36).slice(2, 8),
+  });
+  const pixel = new window.Image();
+  pixel.referrerPolicy = "no-referrer";
+  pixel.src = `${countEndpoint}?${query.toString()}`;
 }
 
 export function trackEvent(name) {

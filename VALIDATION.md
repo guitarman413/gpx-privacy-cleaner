@@ -1,6 +1,6 @@
 # Validation
 
-Date: 2026-06-20
+Date: 2026-06-21
 
 ## Automated checks
 
@@ -22,8 +22,9 @@ The suite covers:
 - Damaged/incomplete XML and non-GPX XML.
 - Original document immutability.
 - Full page flow from file drop to scan, clean result and short-track confirmation.
+- Analytics request allow-list and minimal request fields.
 
-Current result: 15 tests passed, 0 failed.
+Current result: 16 tests passed, 0 failed.
 
 ## Static checks
 
@@ -34,7 +35,7 @@ Current result: 15 tests passed, 0 failed.
 
 ## Manual browser checks
 
-Pending final in-app browser inspection because the browser control connection was unavailable during the first validation attempt. This must be completed before broad promotion.
+Pending final in-app browser inspection because the browser control connection remains unavailable. This must be completed before broad promotion. Automated DOM interaction tests are not reported as manual browser acceptance.
 
 ## Known limits
 
@@ -44,4 +45,4 @@ Pending final in-app browser inspection because the browser control connection w
 - Trimming is applied independently to every Track and Route in the file.
 - Only recognized heart rate, cadence, power, temperature and device extension names are categorized. Unknown extensions are preserved unless “Remove all extension data” is selected.
 - Import compatibility varies by service and by the fields removed. No universal Garmin, Strava, Komoot or other platform guarantee is made.
-- Text feedback requires a configured anonymous form endpoint; otherwise it opens a GitHub Issue draft.
+- No third-party written feedback endpoint is enabled. “Not quite” falls back to a GitHub Issue, which requires a GitHub account.

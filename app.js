@@ -35,7 +35,9 @@ const elements = {
   feedbackYes: document.querySelector("#feedback-yes"),
   feedbackNo: document.querySelector("#feedback-no"),
   feedbackForm: document.querySelector("#feedback-form"),
+  feedbackFallback: document.querySelector("#feedback-fallback"),
   feedbackText: document.querySelector("#feedback-text"),
+  feedbackCompany: document.querySelector("#feedback-company"),
   feedbackStatus: document.querySelector("#feedback-status"),
 };
 
@@ -176,6 +178,7 @@ function resetResult() {
   elements.resultStage.hidden = true;
   elements.feedbackStage.hidden = true;
   elements.feedbackForm.hidden = true;
+  elements.feedbackFallback.hidden = true;
   elements.feedbackStatus.textContent = "";
 }
 
@@ -287,13 +290,20 @@ function downloadResult() {
 }
 
 function showTextFeedback() {
-  elements.feedbackForm.hidden = false;
-  elements.feedbackText.focus();
+  const feedbackEndpoint = document.querySelector('meta[name="feedback-endpoint"]')?.content.trim() || "";
+  elements.feedbackForm.hidden = !feedbackEndpoint;
+  elements.feedbackFallback.hidden = Boolean(feedbackEndpoint);
+  if (feedbackEndpoint) elements.feedbackText.focus();
 }
 
 async function submitTextFeedback(event) {
   event.preventDefault();
   const text = elements.feedbackText.value.trim();
+  if (elements.feedbackCompany.value) {
+    elements.feedbackText.value = "";
+    elements.feedbackStatus.textContent = "Thank you.";
+    return;
+  }
   if (!text) {
     elements.feedbackStatus.textContent = "Write a short note, or use the GitHub issue link below.";
     return;
@@ -322,15 +332,7 @@ async function submitTextFeedback(event) {
 
 configureAnalytics();
 window.addEventListener("load", () => {
-  if (analyticsIsConfigured()) {
-    const waitForAnalytics = window.setInterval(() => {
-      if (window.goatcounter?.count) {
-        window.clearInterval(waitForAnalytics);
-        trackEvent("page_view");
-      }
-    }, 100);
-    window.setTimeout(() => window.clearInterval(waitForAnalytics), 5000);
-  }
+  if (analyticsIsConfigured()) trackEvent("page_view");
 });
 
 elements.fileInput.addEventListener("change", () => handleFile(elements.fileInput.files[0]));

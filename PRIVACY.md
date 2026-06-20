@@ -1,6 +1,6 @@
 # Privacy
 
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 ## GPX processing
 
@@ -14,9 +14,9 @@ GPX files are read and processed locally by the browser. The website does not up
 
 The cleaned file is created as a local browser download. The original file is not modified.
 
-## Anonymous usage events
+## Aggregate usage events
 
-When an analytics endpoint is configured, the website sends only fixed event names for aggregate product validation:
+GoatCounter receives only fixed event names for aggregate product validation:
 
 - `page_view`
 - `file_selected`
@@ -29,13 +29,19 @@ When an analytics endpoint is configured, the website sends only fixed event nam
 - `feedback_helpful` / `feedback_not_helpful`
 - `feedback_text_submitted`
 
-No file-derived value is included in an event. The analytics provider may receive ordinary network information, such as an IP address, while handling the request; the selected provider and its policy must be disclosed before promotion.
+No file-derived value is included in an event. The application sends only the fixed event name, the same fixed title, an event flag and a random cache-busting value. It does not send referrer, page query, screen size or other browser fields.
+
+The GoatCounter site is configured not to collect individual pageviews, sessions, referrers, browser/system names, screen sizes, countries, regions or languages. Aggregate event data is retained for 31 days.
+
+GoatCounter may still process ordinary network information while handling the request. Its hosted service states that it does not store IP addresses, full User-Agent headers or browser tracker IDs.
 
 ## Written feedback
 
-Written feedback is optional and separate from GPX processing. If an anonymous form endpoint is configured, only the text the user deliberately submits and the fixed source name `gpx-privacy-cleaner` are sent. The GPX file is never attached.
+No third-party written feedback provider is currently configured. The evaluated provider required Google reCAPTCHA and additional account-page analytics, so it was not enabled.
 
-Users should not include coordinates, addresses, timestamps or other private GPX information in feedback.
+Users who choose “Not quite” can open a GitHub Issue draft. GitHub requires an account and may process ordinary network and account information. The user reviews and submits the text on GitHub; the GPX file, file name and processing data are never attached automatically.
+
+Users should not include coordinates, addresses, timestamps or other private GPX information in a GitHub Issue.
 
 ## Limits
 
