@@ -33,6 +33,17 @@ Current result: 16 tests passed, 0 failed.
 - `node --check gpx-core.js`
 - Local HTTP response checked at `http://127.0.0.1:4173/`.
 
+## Analytics integration
+
+- Dedicated GoatCounter site: `gpxprivacycleaner`.
+- Data collection is limited to aggregate paths/events; browser, location, referrer, session and individual-pageview collection are disabled.
+- A 12-event internal product flow was sent on 2026-06-21 and every event was visible in the dashboard.
+- One additional endpoint probe was recorded.
+- All 13 internal records were deleted after verification.
+- Formal validation baseline after deletion: 0 events.
+
+These records are internal setup tests and are not part of product validation.
+
 ## Manual browser checks
 
 Pending final in-app browser inspection because the browser control connection remains unavailable. This must be completed before broad promotion. Automated DOM interaction tests are not reported as manual browser acceptance.
