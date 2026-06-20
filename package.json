@@ -1,0 +1,15 @@
+{
+  "name": "gpx-privacy-cleaner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Check and remove sensitive data from GPX files locally in the browser.",
+  "scripts": {
+    "test": "node --test",
+    "serve": "python3 -m http.server 4173"
+  },
+  "devDependencies": {
+    "@xmldom/xmldom": "^0.8.11",
+    "jsdom": "^29.1.1"
+  }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="Garmin Edge 540" version="1.1"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+  xmlns:custom="https://example.com/private-extension">
+  <metadata>
+    <name>Morning ride</name>
+    <author><name>Private Rider</name><email id="rider" domain="example.com"/></author>
+    <copyright author="Private Rider"><year>2026</year></copyright>
+    <time>2026-06-20T06:00:00Z</time>
+  </metadata>
+  <wpt lat="31.2000" lon="121.5000"><name>Home</name></wpt>
+  <trk>
+    <name>Private training route</name>
+    <trkseg>
+      <trkpt lat="31.2000" lon="121.5000"><ele>12</ele><time>2026-06-20T06:00:00Z</time><extensions><gpxtpx:TrackPointExtension><gpxtpx:atemp>24</gpxtpx:atemp><gpxtpx:hr>121</gpxtpx:hr><gpxtpx:cad>82</gpxtpx:cad></gpxtpx:TrackPointExtension></extensions></trkpt>
+      <trkpt lat="31.2010" lon="121.5000"><ele>13</ele><time>2026-06-20T06:01:00Z</time><extensions><gpxtpx:TrackPointExtension><gpxtpx:hr>124</gpxtpx:hr></gpxtpx:TrackPointExtension></extensions></trkpt>
+      <trkpt lat="31.2020" lon="121.5000"><ele>14</ele><time>2026-06-20T06:02:00Z</time></trkpt>
+      <trkpt lat="31.2030" lon="121.5000"><ele>15</ele><time>2026-06-20T06:03:00Z</time></trkpt>
+    </trkseg>
+    <trkseg>
+      <trkpt lat="31.2040" lon="121.5000"><ele>16</ele><time>2026-06-20T06:04:00Z</time></trkpt>
+      <trkpt lat="31.2050" lon="121.5000"><ele>17</ele><time>2026-06-20T06:05:00Z</time><extensions><custom:privateScore>7</custom:privateScore></extensions></trkpt>
+      <trkpt lat="31.2060" lon="121.5000"><ele>18</ele><time>2026-06-20T06:06:00Z</time></trkpt>
+      <trkpt lat="31.2070" lon="121.5000"><ele>19</ele><time>2026-06-20T06:07:00Z</time></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

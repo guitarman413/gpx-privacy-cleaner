@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="Route Maker" version="1.0" xmlns="http://www.topografix.com/GPX/1/0">
+  <rte>
+    <name>Coastal route</name>
+    <rtept lat="50.0000" lon="-1.0000"><ele>2</ele><time>2026-06-20T08:00:00Z</time></rtept>
+    <rtept lat="50.0010" lon="-1.0000"><ele>3</ele><time>2026-06-20T08:01:00Z</time></rtept>
+    <rtept lat="50.0020" lon="-1.0000"><ele>4</ele><time>2026-06-20T08:02:00Z</time></rtept>
+    <rtept lat="50.0030" lon="-1.0000"><ele>5</ele><time>2026-06-20T08:03:00Z</time></rtept>
+    <rtept lat="50.0040" lon="-1.0000"><ele>6</ele><time>2026-06-20T08:04:00Z</time></rtept>
+  </rte>
+</gpx>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="Strava" version="1.1"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
+  xmlns:power="http://example.com/power">
+  <trk><trkseg>
+    <trkpt lat="40.0000" lon="-74.0000"><extensions><gpxtpx:TrackPointExtension><gpxtpx:hr>140</gpxtpx:hr><gpxtpx:cad>88</gpxtpx:cad><gpxtpx:wtemp>18</gpxtpx:wtemp></gpxtpx:TrackPointExtension><power:watts>210</power:watts></extensions></trkpt>
+    <trkpt lat="40.0010" lon="-74.0000"/>
+  </trkseg></trk>
+</gpx>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Anonymize a GPX file before sharing. Check timestamps, home-location risk, activity data and personal metadata, then create a safer copy locally in your browser.">
+    <meta name="keywords" content="anonymize GPX file, remove timestamps from GPX, hide home location in GPX, remove personal data from GPX, clean GPX before sharing, GPX privacy cleaner, GPX metadata remover">
+    <meta name="theme-color" content="#143f3a">
+    <meta name="analytics-endpoint" content="">
+    <meta name="feedback-endpoint" content="">
+    <link rel="canonical" href="https://guitarman413.github.io/gpx-privacy-cleaner/">
+    <title>GPX Privacy Cleaner – Clean a GPX Before Sharing</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="GPX Privacy Cleaner home">
+        <span class="brand-mark" aria-hidden="true">GPX</span>
+        <span>Privacy Cleaner</span>
+      </a>
+      <a class="header-link" href="#privacy">Privacy</a>
+    </header>
+
+    <main id="top">
+      <section class="hero shell">
+        <div class="eyebrow">Before you share the route, check the file.</div>
+        <h1>Make your GPX safer to share.</h1>
+        <p class="hero-copy">Check what your GPX file reveals, remove sensitive location and activity data, and download a safer copy before sharing.</p>
+        <div class="privacy-promise" role="note">
+          <span class="promise-icon" aria-hidden="true">✓</span>
+          <div><strong>Your GPX stays on this device.</strong> Coordinates, timestamps, file names and track data are never uploaded.</div>
+        </div>
+      </section>
+
+      <section class="tool shell" aria-labelledby="tool-title">
+        <div class="section-heading">
+          <span class="step-number">1</span>
+          <div>
+            <h2 id="tool-title">Choose one GPX file</h2>
+            <p>GPX 1.0 or 1.1. The file is opened only inside your browser.</p>
+          </div>
+        </div>
+
+        <label class="drop-zone" id="drop-zone" for="file-input">
+          <input id="file-input" type="file" accept=".gpx,application/gpx+xml,application/xml,text/xml">
+          <span class="upload-symbol" aria-hidden="true">↑</span>
+          <strong>Drop a GPX file here</strong>
+          <span>or choose a file</span>
+          <span class="file-limit">One file, up to 25 MB</span>
+        </label>
+        <div id="file-status" class="file-status" aria-live="polite"></div>
+
+        <div id="workspace" class="workspace" hidden>
+          <section class="tool-stage" aria-labelledby="scan-title">
+            <div class="section-heading compact">
+              <span class="step-number">2</span>
+              <div>
+                <h2 id="scan-title">Privacy scan</h2>
+                <p>What this file may reveal before you publish it.</p>
+              </div>
+            </div>
+            <div id="scan-summary" class="scan-grid"></div>
+            <div id="unknown-extension-notice" class="notice warning" hidden></div>
+          </section>
+
+          <section class="tool-stage" aria-labelledby="clean-title">
+            <div class="section-heading compact">
+              <span class="step-number">3</span>
+              <div>
+                <h2 id="clean-title">Choose what to remove</h2>
+                <p>Nothing changes until you create a cleaned copy.</p>
+              </div>
+            </div>
+
+            <div class="options-grid">
+              <fieldset class="option-group">
+                <legend>Metadata and activity data</legend>
+                <label class="check-option"><input type="checkbox" name="removeTimes"><span><strong>Remove all timestamps</strong><small>Hides exact activity dates and timing.</small></span></label>
+                <label class="check-option"><input type="checkbox" name="removeElevation"><span><strong>Remove elevation</strong><small>Removes altitude from points and routes.</small></span></label>
+                <label class="check-option"><input type="checkbox" name="removeSportsExtensions"><span><strong>Remove activity sensor data</strong><small>Heart rate, cadence, power and temperature fields.</small></span></label>
+                <label class="check-option"><input type="checkbox" name="removePersonalMetadata"><span><strong>Remove personal and device details</strong><small>Author, email, copyright, creator and recognized device fields.</small></span></label>
+                <label class="check-option"><input type="checkbox" name="removeWaypoints"><span><strong>Remove waypoints</strong><small>Waypoints may name or mark private locations.</small></span></label>
+                <label class="check-option caution"><input type="checkbox" name="removeAllExtensions"><span><strong>Remove all extension data</strong><small>Also removes fields this tool does not recognize. Off by default.</small></span></label>
+              </fieldset>
+
+              <fieldset class="option-group">
+                <legend>Start and end of the route</legend>
+                <p class="field-help">Trimming follows the track's travelled distance. It does not delete every point inside a straight-line radius.</p>
+                <label class="select-field"><span>Trim from the start</span><select id="trim-start" name="trimStartMeters"><option value="0">Do not trim</option><option value="200">200 metres</option><option value="500">500 metres</option><option value="1000">1,000 metres</option><option value="custom">Custom distance</option></select></label>
+                <label class="custom-distance" id="custom-start-wrap" hidden><span>Custom start distance (metres)</span><input id="custom-start" type="number" min="1" max="100000" step="1" inputmode="numeric"></label>
+                <label class="select-field"><span>Trim from the end</span><select id="trim-end" name="trimEndMeters"><option value="0">Do not trim</option><option value="200">200 metres</option><option value="500">500 metres</option><option value="1000">1,000 metres</option><option value="custom">Custom distance</option></select></label>
+                <label class="custom-distance" id="custom-end-wrap" hidden><span>Custom end distance (metres)</span><input id="custom-end" type="number" min="1" max="100000" step="1" inputmode="numeric"></label>
+
+                <label class="select-field precision-field"><span>Reduce coordinate precision</span><select id="coordinate-precision" name="coordinateDecimals"><option value="">Keep original precision</option><option value="5">5 decimals – roughly 1 metre</option><option value="4">4 decimals – roughly 11 metres</option><option value="3">3 decimals – roughly 110 metres</option></select></label>
+                <p class="field-help">Rounding coordinates reduces precision but does not guarantee that a home or other sensitive place is hidden.</p>
+              </fieldset>
+            </div>
+
+            <div id="preflight" class="preflight" aria-live="polite"></div>
+            <label id="risk-confirm-wrap" class="risk-confirm" hidden><input id="risk-confirm" type="checkbox"><span>I understand that these trim settings remove most or all points from at least one track or route.</span></label>
+            <button id="clean-button" class="primary-button" type="button">Create safer copy</button>
+            <p class="safety-note">Removing metadata or reducing precision cannot guarantee complete anonymity. Review the cleaned track before publishing it.</p>
+          </section>
+
+          <section id="result-stage" class="tool-stage result-stage" aria-labelledby="result-title" hidden>
+            <div class="section-heading compact">
+              <span class="step-number success">✓</span>
+              <div>
+                <h2 id="result-title">Cleaned copy ready</h2>
+                <p>The new file was scanned again. Your original file has not been changed.</p>
+              </div>
+            </div>
+            <div id="comparison" class="comparison"></div>
+            <div id="result-warning" class="notice warning" hidden></div>
+            <button id="download-button" class="primary-button download-button" type="button">Download cleaned GPX</button>
+          </section>
+
+          <section id="feedback-stage" class="feedback-stage" hidden>
+            <h2>Did this make your GPX safer to share?</h2>
+            <div class="feedback-buttons">
+              <button id="feedback-yes" class="secondary-button" type="button">Yes</button>
+              <button id="feedback-no" class="secondary-button" type="button">Not quite</button>
+            </div>
+            <form id="feedback-form" class="feedback-form" hidden>
+              <label for="feedback-text">What information do you still need to remove?</label>
+              <textarea id="feedback-text" maxlength="1000" rows="4" placeholder="Please do not paste coordinates or private GPX data."></textarea>
+              <button class="secondary-button" type="submit">Send optional feedback</button>
+              <p id="feedback-status" class="form-status" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <section class="faq shell" aria-labelledby="faq-title">
+        <div class="eyebrow">Questions before sharing</div>
+        <h2 id="faq-title">GPX privacy FAQ</h2>
+        <details><summary>What personal information can a GPX file reveal?</summary><p>A GPX can contain precise coordinates, activity times, elevation, named waypoints, author details, device information and sensor data. Repeated start and end points may also reveal a home, workplace, marina or regular meeting place.</p></details>
+        <details><summary>Does a GPX file contain timestamps?</summary><p>Many recorded GPX files attach an exact time to every track point. This tool checks for time fields and can remove all of them from the cleaned copy.</p></details>
+        <details><summary>How can I hide my home location in a GPX track?</summary><p>You can trim a chosen travelled distance from the start and end, then optionally lower coordinate precision. This reduces exposure but cannot prove that a location is anonymous. Review the result before publishing.</p></details>
+        <details><summary>Is my GPX file uploaded?</summary><p>No. Parsing, scanning, cleaning and file creation happen locally in your browser. Anonymous usage events never include the file name, coordinates, timestamps or GPX content.</p></details>
+        <details><summary>Does removing timestamps make a GPX file anonymous?</summary><p>No. The route itself, waypoints, start and end positions, metadata and extension fields may still reveal sensitive information.</p></details>
+        <details><summary>Will the cleaned file still work in Garmin, Strava, Komoot or other apps?</summary><p>The cleaner preserves the GPX document, namespaces, tracks, routes and segment structure. Compatibility varies by service and by the data you choose to remove, so no universal import guarantee is made. Keep the original and test the cleaned copy in your intended service.</p></details>
+      </section>
+    </main>
+
+    <footer id="privacy" class="site-footer">
+      <div class="shell footer-grid">
+        <div>
+          <strong>GPX Privacy Cleaner</strong>
+          <p>A focused, open-source tool for cleaning one GPX file before sharing.</p>
+        </div>
+        <div>
+          <strong>Privacy</strong>
+          <p>Files remain local. Anonymous aggregate events contain only fixed event names and selected cleaning categories, never GPX data or user text.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/guitarman413/gpx-privacy-cleaner" target="_blank" rel="noreferrer">GitHub</a>
+          <a id="issue-link" href="https://github.com/guitarman413/gpx-privacy-cleaner/issues/new" target="_blank" rel="noreferrer">Report a problem</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
