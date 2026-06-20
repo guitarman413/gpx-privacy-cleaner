@@ -29,6 +29,8 @@ Current result: 16 tests passed, 0 failed.
 
 Source tests cover `gpxlab`, `reddit`, an unknown value and no value. They also verify that arbitrary parameters are not forwarded and that no more than one source event is emitted per page load.
 
+Both deployed campaign links were exercised during internal setup. `source_gpxlab` and `source_reddit` each appeared once in GoatCounter. The source events and their internal `page_view` records were then deleted; the dashboard returned to 0 visits.
+
 ## Static checks
 
 - `node --check app.js`
