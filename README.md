@@ -39,11 +39,13 @@ The UI uses the dedicated `gpxprivacycleaner` GoatCounter site. It sends image r
 
 Only allow-listed fixed event names and a random cache-busting value are sent. Selected cleaning categories are represented by fixed event names such as `scrub_option_timestamps`; no user values are attached. Referrer, query string and screen width are not sent by the application.
 
+The optional `source` query parameter accepts only the hard-coded values `gpxlab` and `reddit`, which produce `source_gpxlab` and `source_reddit`. Unknown values are ignored. The full query string and referrer are never forwarded.
+
 ## Feedback configuration
 
 The optional third-party text endpoint is intentionally not configured. The evaluated provider required Google reCAPTCHA and additional account-page analytics, which did not meet this project's minimum-data rule.
 
-“Not quite” therefore displays a GitHub Issue fallback that the user can review before submitting. GitHub requires an account. Yes/No feedback remains independent of written feedback and is counted by GoatCounter.
+“Not quite” displays a text box whose contents are used only to prepare a GitHub Issue draft. The button reads “Review and submit on GitHub”; nothing is submitted automatically, and an empty text box opens the ordinary new-issue page. GitHub requires an account. Yes/No feedback remains independent of written feedback and is counted by GoatCounter.
 
 ## Important limitation
 

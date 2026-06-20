@@ -7,7 +7,6 @@
     <meta name="keywords" content="anonymize GPX file, remove timestamps from GPX, hide home location in GPX, remove personal data from GPX, clean GPX before sharing, GPX privacy cleaner, GPX metadata remover">
     <meta name="theme-color" content="#143f3a">
     <meta name="analytics-endpoint" content="https://gpxprivacycleaner.goatcounter.com/count">
-    <meta name="feedback-endpoint" content="">
     <link rel="canonical" href="https://guitarman413.github.io/gpx-privacy-cleaner/">
     <title>GPX Privacy Cleaner – Clean a GPX Before Sharing</title>
     <link rel="stylesheet" href="style.css">
@@ -125,14 +124,11 @@
               <label for="feedback-text">What information do you still need to remove?</label>
               <textarea id="feedback-text" maxlength="1000" rows="4" placeholder="Please do not paste coordinates or private GPX data."></textarea>
               <label class="honeypot" aria-hidden="true">Leave this field empty<input id="feedback-company" type="text" name="company" tabindex="-1" autocomplete="off"></label>
-              <p class="feedback-privacy">Feedback is optional and does not require your name or email. The text you submit is sent to our form provider. Do not include coordinates, addresses, timestamps or other private GPX information.</p>
-              <button class="secondary-button" type="submit">Send optional feedback</button>
+              <p class="feedback-privacy">Your text is used only to prepare a GitHub Issue draft for you to review. It is not sent automatically and is not included in analytics.</p>
+              <button class="secondary-button" type="submit">Review and submit on GitHub</button>
+              <p class="feedback-privacy">Opens a GitHub Issue draft. A GitHub account is required.</p>
               <p id="feedback-status" class="form-status" aria-live="polite"></p>
             </form>
-            <div id="feedback-fallback" class="feedback-fallback" hidden>
-              <p>Written feedback is currently handled through GitHub Issues. GitHub requires an account and lets you review the text before submitting it.</p>
-              <a class="secondary-button link-button" href="https://github.com/guitarman413/gpx-privacy-cleaner/issues/new?title=GPX%20privacy%20feedback" target="_blank" rel="noreferrer">Open a GitHub feedback draft</a>
-            </div>
           </section>
         </div>
       </section>
@@ -157,7 +153,7 @@
         </div>
         <div>
           <strong>Privacy</strong>
-          <p>Files remain local. GoatCounter receives fixed usage events. Optional written feedback is sent only when you submit it to the named form provider.</p>
+          <p>Files remain local. GoatCounter receives fixed usage events. Optional written feedback only prepares a GitHub Issue draft for you to review.</p>
         </div>
         <div class="footer-links">
           <a href="https://github.com/guitarman413/gpx-privacy-cleaner" target="_blank" rel="noreferrer">GitHub</a>

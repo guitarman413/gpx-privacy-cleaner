@@ -27,9 +27,11 @@ GoatCounter receives only fixed event names for aggregate product validation:
 - fixed `scrub_option_*` category names
 - `download_success`
 - `feedback_helpful` / `feedback_not_helpful`
-- `feedback_text_submitted`
+- `source_gpxlab` / `source_reddit`
 
 No file-derived value is included in an event. The application sends only the fixed event name, the same fixed title, an event flag and a random cache-busting value. It does not send referrer, page query, screen size or other browser fields.
+
+Campaign links may use `?source=gpxlab` or `?source=reddit`. These values are matched against a hard-coded allow-list and recorded only as `source_gpxlab` or `source_reddit`. Unknown values are ignored. GoatCounter does not receive the complete query string, arbitrary parameter values or the referring URL.
 
 The GoatCounter site is configured not to collect individual pageviews, sessions, referrers, browser/system names, screen sizes, countries, regions or languages. Aggregate event data is retained for 31 days.
 
@@ -39,7 +41,9 @@ GoatCounter may still process ordinary network information while handling the re
 
 No third-party written feedback provider is currently configured. The evaluated provider required Google reCAPTCHA and additional account-page analytics, so it was not enabled.
 
-Users who choose “Not quite” can open a GitHub Issue draft. GitHub requires an account and may process ordinary network and account information. The user reviews and submits the text on GitHub; the GPX file, file name and processing data are never attached automatically.
+Users who choose “Not quite” can type optional text and open a GitHub Issue draft. The text is used only to construct that draft in the user's browser. It is not sent automatically and does not enter GoatCounter. If the text is empty, the ordinary GitHub new-issue page opens instead.
+
+GitHub requires an account and may process ordinary network and account information. The user reviews and submits the text on GitHub; the GPX file, file name, coordinates and processing results are never attached automatically.
 
 Users should not include coordinates, addresses, timestamps or other private GPX information in a GitHub Issue.
 

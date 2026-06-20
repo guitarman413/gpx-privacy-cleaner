@@ -20,8 +20,14 @@ test("analytics sends only allow-listed fixed event fields", async () => {
   analytics.trackEvent("parse_success");
   analytics.trackEvent("not_allowed");
   analytics.trackSelectedCategories(["timestamps", "not_allowed"]);
+  assert.equal(analytics.sourceEventForSearch("?source=gpxlab"), "source_gpxlab");
+  assert.equal(analytics.sourceEventForSearch("?source=reddit"), "source_reddit");
+  assert.equal(analytics.sourceEventForSearch("?source=unknown"), null);
+  assert.equal(analytics.sourceEventForSearch(""), null);
+  analytics.trackSource("?source=gpxlab&private=must-not-be-sent");
+  analytics.trackSource("?source=reddit");
 
-  assert.equal(requests.length, 2);
+  assert.equal(requests.length, 3);
   for (const request of requests) {
     const url = new URL(request);
     assert.deepEqual(Array.from(url.searchParams.keys()).sort(), ["e", "p", "rnd", "t"]);
@@ -30,4 +36,6 @@ test("analytics sends only allow-listed fixed event fields", async () => {
   }
   assert.equal(new URL(requests[0]).searchParams.get("p"), "parse_success");
   assert.equal(new URL(requests[1]).searchParams.get("p"), "scrub_option_timestamps");
+  assert.equal(new URL(requests[2]).searchParams.get("p"), "source_gpxlab");
+  assert.doesNotMatch(requests[2], /private|must-not-be-sent|reddit/);
 });

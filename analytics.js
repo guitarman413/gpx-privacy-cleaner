@@ -10,8 +10,14 @@ const ALLOWED_EVENTS = new Set([
   "scrub_failure",
   "feedback_helpful",
   "feedback_not_helpful",
-  "feedback_text_submitted",
+  "source_gpxlab",
+  "source_reddit",
 ]);
+
+const SOURCE_EVENTS = Object.freeze({
+  gpxlab: "source_gpxlab",
+  reddit: "source_reddit",
+});
 
 const ALLOWED_CATEGORIES = new Set([
   "timestamps",
@@ -28,6 +34,8 @@ const ALLOWED_CATEGORIES = new Set([
 function endpoint() {
   return document.querySelector('meta[name="analytics-endpoint"]')?.content.trim() || "";
 }
+
+let sourceChecked = false;
 
 export function configureAnalytics() {}
 
@@ -54,6 +62,18 @@ export function trackSelectedCategories(categories) {
   for (const category of new Set(categories)) {
     if (ALLOWED_CATEGORIES.has(category)) send(`scrub_option_${category}`);
   }
+}
+
+export function sourceEventForSearch(search) {
+  const source = new URLSearchParams(search).get("source");
+  return SOURCE_EVENTS[source] || null;
+}
+
+export function trackSource(search = window.location.search) {
+  if (sourceChecked) return;
+  sourceChecked = true;
+  const event = sourceEventForSearch(search);
+  if (event) send(event);
 }
 
 export function analyticsIsConfigured() {

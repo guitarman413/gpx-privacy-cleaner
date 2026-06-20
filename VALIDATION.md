@@ -23,8 +23,11 @@ The suite covers:
 - Original document immutability.
 - Full page flow from file drop to scan, clean result and short-track confirmation.
 - Analytics request allow-list and minimal request fields.
+- Allowed, unknown and absent campaign source parameters, including one-source-event-per-load behavior.
 
 Current result: 16 tests passed, 0 failed.
+
+Source tests cover `gpxlab`, `reddit`, an unknown value and no value. They also verify that arbitrary parameters are not forwarded and that no more than one source event is emitted per page load.
 
 ## Static checks
 

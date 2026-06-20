@@ -4,6 +4,7 @@ import {
   configureAnalytics,
   trackEvent,
   trackSelectedCategories,
+  trackSource,
 } from "./analytics.js";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024;
@@ -35,7 +36,6 @@ const elements = {
   feedbackYes: document.querySelector("#feedback-yes"),
   feedbackNo: document.querySelector("#feedback-no"),
   feedbackForm: document.querySelector("#feedback-form"),
-  feedbackFallback: document.querySelector("#feedback-fallback"),
   feedbackText: document.querySelector("#feedback-text"),
   feedbackCompany: document.querySelector("#feedback-company"),
   feedbackStatus: document.querySelector("#feedback-status"),
@@ -178,7 +178,6 @@ function resetResult() {
   elements.resultStage.hidden = true;
   elements.feedbackStage.hidden = true;
   elements.feedbackForm.hidden = true;
-  elements.feedbackFallback.hidden = true;
   elements.feedbackStatus.textContent = "";
 }
 
@@ -290,13 +289,11 @@ function downloadResult() {
 }
 
 function showTextFeedback() {
-  const feedbackEndpoint = document.querySelector('meta[name="feedback-endpoint"]')?.content.trim() || "";
-  elements.feedbackForm.hidden = !feedbackEndpoint;
-  elements.feedbackFallback.hidden = Boolean(feedbackEndpoint);
-  if (feedbackEndpoint) elements.feedbackText.focus();
+  elements.feedbackForm.hidden = false;
+  elements.feedbackText.focus();
 }
 
-async function submitTextFeedback(event) {
+function submitTextFeedback(event) {
   event.preventDefault();
   const text = elements.feedbackText.value.trim();
   if (elements.feedbackCompany.value) {
@@ -304,35 +301,19 @@ async function submitTextFeedback(event) {
     elements.feedbackStatus.textContent = "Thank you.";
     return;
   }
-  if (!text) {
-    elements.feedbackStatus.textContent = "Write a short note, or use the GitHub issue link below.";
-    return;
-  }
-  const feedbackEndpoint = document.querySelector('meta[name="feedback-endpoint"]')?.content.trim() || "";
-  if (!feedbackEndpoint) {
-    const issue = `${ISSUE_URL}?title=${encodeURIComponent("GPX privacy feedback")}&body=${encodeURIComponent(text)}`;
-    window.open(issue, "_blank", "noopener,noreferrer");
-    elements.feedbackStatus.textContent = "A GitHub feedback draft was opened. Review it before submitting.";
-    return;
-  }
-  try {
-    const response = await fetch(feedbackEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ message: text, source: "gpx-privacy-cleaner" }),
-    });
-    if (!response.ok) throw new Error("Feedback service rejected the request.");
-    elements.feedbackText.value = "";
-    elements.feedbackStatus.textContent = "Thank you. Your note was sent without the GPX file.";
-    trackEvent("feedback_text_submitted");
-  } catch {
-    elements.feedbackStatus.textContent = "The note could not be sent. You can still report it through GitHub.";
-  }
+  const issue = text
+    ? `${ISSUE_URL}?title=${encodeURIComponent("GPX privacy feedback")}&body=${encodeURIComponent(text)}`
+    : ISSUE_URL;
+  window.open(issue, "_blank", "noopener,noreferrer");
+  elements.feedbackStatus.textContent = "A GitHub feedback draft was opened. Review it before submitting.";
 }
 
 configureAnalytics();
 window.addEventListener("load", () => {
-  if (analyticsIsConfigured()) trackEvent("page_view");
+  if (analyticsIsConfigured()) {
+    trackEvent("page_view");
+    window.setTimeout(() => trackSource(), 750);
+  }
 });
 
 elements.fileInput.addEventListener("change", () => handleFile(elements.fileInput.files[0]));

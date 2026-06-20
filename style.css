@@ -641,19 +641,6 @@ textarea:focus {
   margin-top: 8px;
 }
 
-.feedback-fallback {
-  max-width: 580px;
-  margin: 20px auto 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-
-.link-button {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-}
-
 .form-status {
   margin: 8px 0 0;
   color: var(--muted);

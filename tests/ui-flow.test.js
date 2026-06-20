@@ -24,8 +24,9 @@ test("page flow scans, cleans and protects extremely short tracks", async () => 
     pretendToBeVisual: true,
   });
   const { window } = dom;
+  const openedUrls = [];
   window.HTMLElement.prototype.scrollIntoView = () => {};
-  window.open = () => null;
+  window.open = (url) => openedUrls.push(url);
   window.URL.createObjectURL = () => "blob:test-cleaned-gpx";
   window.URL.revokeObjectURL = () => {};
   window.HTMLAnchorElement.prototype.click = () => {};
@@ -63,6 +64,21 @@ test("page flow scans, cleans and protects extremely short tracks", async () => 
   assert.equal(document.querySelector("#result-stage").hidden, false);
   assert.match(document.querySelector("#comparison").textContent, /Time fields/);
   assert.equal(document.querySelector("#feedback-stage").hidden, false);
+  document.querySelector("#feedback-no").click();
+  assert.equal(document.querySelector("#feedback-form").hidden, false);
+  assert.match(document.querySelector("#feedback-form").textContent, /Review and submit on GitHub/);
+  document.querySelector("#feedback-form").dispatchEvent(
+    new window.Event("submit", { bubbles: true, cancelable: true }),
+  );
+  assert.equal(openedUrls[0], "https://github.com/guitarman413/gpx-privacy-cleaner/issues/new");
+  document.querySelector("#feedback-text").value = "Please remove another metadata field.";
+  document.querySelector("#feedback-form").dispatchEvent(
+    new window.Event("submit", { bubbles: true, cancelable: true }),
+  );
+  assert.equal(
+    new URL(openedUrls[1]).searchParams.get("body"),
+    "Please remove another metadata field.",
+  );
 
   const shortXml = await readFile(
     new URL("fixtures/gpx11-short.gpx", import.meta.url),
