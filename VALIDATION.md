@@ -51,7 +51,7 @@ These records are internal setup tests and are not part of product validation.
 
 ## Manual browser checks
 
-Pending final in-app browser inspection because the browser control connection remains unavailable. This must be completed before broad promotion. Automated DOM interaction tests are not reported as manual browser acceptance.
+User acceptance completed on 2026-06-21. Desktop and mobile narrow-screen checks passed. Automated DOM interaction tests remain documented separately and were not used as a substitute for user acceptance.
 
 ## Known limits
 
